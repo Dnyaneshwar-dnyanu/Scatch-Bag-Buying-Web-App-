@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+.flash {
+    opacity: 0;
+    pointer-events: none;
+    animation: show-then-hide 3s forwards;
+}
+
+@keyframes show-then-hide {
+    0% { opacity: 0;}
+    5% {opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+.inputNumber::-webkit-inner-spin-button,
+.inputNumber::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}

@@ -1,0 +1,76 @@
+<%- include('./partials/header') %>
+
+     <% if (success.length > 0) { %>
+     <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 py-1 rounded-md bg-green-500 text-zinc-800 flash">
+          <span><%= success %></span>
+     </div>
+     <% } %>
+
+     <div class="container w-full h-screen px-20 py-20 flex">
+          <div class="w-[25%] space-y-1 p-3">
+               <a class="block hover:underline" href="">All Products</a>
+               <a class="block hover:underline" href="">Add New Product</a>
+          </div>
+          <div class="w-[75%] px-5 border-2 border-zinc-400 border-y-0">
+               <h2 class="text-xl font-semibold mb-4">Add New Product</h2>
+               <form action="/products/addProduct" method="post" enctype="multipart/form-data">
+                    <div class="space-y-2">
+                         <h3 class="text-[0.995rem] font-semibold">Product Details : </h3>
+
+                         <div class="w-full px-2 pb-2">
+                              <div class="mb-4">
+                                   <label class="text-[0.995rem]">Product Image :
+                                        <input class=" file:border-2 file:rounded-md file:px-2" type="file"
+                                             name="image" value="Select File" id="imageInput" required>
+                                   </label>
+                              </div>
+                              <div class="grid grid-cols-2 gap-4">
+                                   <input class="w-full px-3 py-2 border-[1px] bg-zinc-200 rounded-md" type="text"
+                                        name="name" placeholder="Product Name" id="nameInput" required>
+                                   <input class="w-full px-3 py-2 border-[1px] bg-zinc-200 rounded-md" type="number"
+                                        name="price" placeholder="Product Price" id="priceInput" required>
+                                   <input class="w-full px-3 py-2 border-[1px] bg-zinc-200 rounded-md" type="number"
+                                        name="discount" placeholder="Product Discount">
+                              </div>
+                         </div>
+                         <div class="w-full space-y-2">
+                              <h3 class="text-[0.995rem] font-semibold">Panel Details : </h3>
+                              <div class="grid grid-cols-2 gap-4 px-2">
+                                   <label class="flex items-center gap-4">
+                                        Background Color - <input class=" w-10 h-10 p-1 border-[1px] bg-zinc-200 rounded-full cursor-pointer" type="color" value="#ff0000" name="bgcolor" id="bgcolorInput">
+                                   </label>
+                                   <label class="flex items-center gap-4">
+                                        Panel Color - <input class=" w-10 h-10 p-1 border-[1px] bg-zinc-200 rounded-full cursor-pointer" type="color"
+                                             name="panelcolor" id="panelcolorInput">
+                                   </label>
+                                   <label class="flex items-center gap-4">
+                                        Text Color - <input class=" w-10 h-10 p-1 border-[1px] bg-zinc-200 rounded-full cursor-pointer" type="color"
+                                             name="textcolor" id="textcolorInput">
+                                   </label>
+                              </div>
+                              <div>
+
+                              </div>
+                         </div>
+                         <input class="bg-blue-400 p-2 rounded-md cursor-pointer" type="submit" value="Add New Product">
+                    </div>
+               </form>
+          </div>
+          <div class="preview">
+               <div class="w-60 h-72">
+                    <div class="image h-[75%] w-full" id="previewBGColor">
+                         <img class="w-full h-full object-fill p-4 invisible" src="" alt="" id="previewImage">
+                    </div>
+                    <div class="panel h-[25%] flex justify-between items-center px-3" id="previewPanelColor">
+                         <div class="details" id="previewTextColor">
+                              <span class="block" id="previewName"></span>
+                              <span class="block" id="previewPrice"> </span>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+     <script src="/javascript/script.js"></script>
+
+     <%- include('./partials/footer') %>

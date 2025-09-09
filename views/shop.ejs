@@ -1,0 +1,80 @@
+<%- include('./partials/header') %>
+
+     <% if (success.length> 0) { %>
+          <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3 py-[2px] rounded-md border-[1px] border-zinc-700 z-99 flash"
+               style="background-color: rgb(126, 221, 126); letter-spacing: 0.1rem;">
+               <span class="text-[0.925rem] tracking-[0.1rem]">
+                    <%= success %>
+               </span>
+          </div>
+          <% } %>
+
+               <div class="w-full h-screen py-20 px-10 flex gap-10 items-start justify-start">
+                    <div class="w-[15%] flex flex-col justify-start gap-20">
+                         <div>
+                              <form action="">
+                                   <span>sort by: </span><select class="border-2 cursor-pointer text-[0.875rem]"
+                                        name="sortBy">
+                                        <option value="popular">Popular</option>
+                                        <option value="newest">Newest</option>
+                                   </select>
+                              </form>
+                         </div>
+                         <div class="space-y-2">
+                              <a class="block hover:underline" href="">New Products</a>
+                              <a class="block hover:underline" href="">All Products</a>
+                              <a class="block hover:underline" href="">Discounted Products</a>
+                         </div>
+                         <div class="space-y-2">
+                              <span>Filter by: </span>
+                              <a class="block hover:underline" href="">Availability</a>
+                              <a class="block hover:underline" href="">Discount</a>
+                         </div>
+                    </div>
+                    <div class="cardContainer w-[85%] mt-5 flex flex-wrap gap-4 ">
+                         <% products.forEach((product)=> { %>
+                              <div class="card h-64" style="width: 200px;">
+                                   <div class="image h-[75%] w-full" style="background-color: <%= product.bgcolor %>;">
+                                        <img class="w-full h-full object-fill p-5"
+                                             src="data:image/jpeg;base64, <%= product.image.toString('base64') %>"
+                                             alt="">
+                                   </div>
+                                   <div class="panel h-[25%] flex justify-between items-center px-3"
+                                        style="background-color: <%= product.panelcolor %>;">
+                                        <div class="details" style="color: <%= product.textcolor %>;">
+                                             <span class="productName block">
+                                                  <%= product.name %>
+                                             </span>
+                                             <span class=" block">₹ <%= product.price %></span>
+                                        </div>
+                                        <div
+                                             class="addToCart w-7 h-7 bg-zinc-200 text-2xl font-bold rounded-full flex items-center justify-center">
+                                             <a href="/users/addToCart/<%= product._id %>">+</a>
+                                        </div>
+                                   </div>
+                              </div>
+                              <% }) %>
+                    </div>
+               </div>
+
+               <script>
+                    function main() {
+                         document.getElementById('search').addEventListener('input', (e) => {
+                              let searchValue = e.target.value;
+
+                              document.querySelectorAll('.card').forEach((card) => {
+                                   let cardName = card.querySelector('.productName').textContent;
+                                   if (cardName.includes(searchValue)) {
+                                        card.classList.add('block');
+                                        card.classList.remove('hidden');
+                                   } else {
+                                        card.classList.add('hidden');
+                                        card.classList.remove('block');
+                                   }
+                              })
+                         })
+                    }
+
+                    main()
+               </script>
+               <%- include('./partials/footer') %>

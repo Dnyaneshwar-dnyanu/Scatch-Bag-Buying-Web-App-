@@ -1,0 +1,137 @@
+<%- include('./partials/header') %>
+
+
+     <div class="parentContainer container w-full h-screen mx-auto pt-20 flex font-sans flex-col xl:flex-row">
+          <div class="image xl:w-[25%] w-full flex xl:flex-col flex-row items-center justify-start gap-5 mt-10 xl:h-[90%]">
+               <% products.forEach((product) => { %>
+                    <div class="w-72 h-80 p-3 bg-amber-500 rounded-lg">
+                         <img class="w-64 h-64 border-8 border-zinc-500 bg-white rounded-2xl object-fill p-3"
+                              src="data:image/jpeg;base64, <%= product.image.toString('base64') %>" alt="">
+                         <span class="text-xl py-3 font-bold">
+                              <%= product.name %>
+                         </span>
+                    </div>
+               <% }) %>
+          </div>
+          <div class="form xl:w-[75%] w-full px-10 md:block flex justify-center flex-col xl:sticky xl:top-5">
+               <h4 class="text-xl font-semibold py-2 md:pl-0 pl-5 ">Edit your delivery address</h4>
+               <% var actionUrl = products.length > 1 ? "/users/placeorderall" : `/users/placeOrder/${ products[0]._id }`; %>
+               <form class="orderForm md:w-full w-[90%] grid grid-cols-1 md:grid-cols-2 gap-4 my-4 self-center" action="<%= actionUrl %>"
+                    method="post">
+                    <label class="font-semibold">
+                         Country
+                         <select name="country"
+                              class="px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full"
+                              required>
+                              <option value="" disabled selected>Select your country</option>
+                              <option>India</option>
+                         </select>
+                    </label>
+                    <label class="font-semibold">
+                         Full name (First and Last name) <input type="text" name="fullname" value="<%= user.fullname %>"
+                              class="px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full"
+                              required>
+                    </label>
+                    <label class="font-semibold">
+                         Mobile Number: <input type="number" name="phoneNumber" value="<%= user.phoneNumber %>"
+                              class="inputNumber px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full appearance-none"
+                              required>
+                    </label>
+                    <label class="font-semibold">
+                         Flat, House no., Building, Company, Apartment
+                         <input type="text" name="houseNo" value="<%= user.houseNo %>"
+                              class="px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full">
+                    </label>
+                    <label class="font-semibold">
+                         Area, Street, Sector, Village
+                         <input type="text" name="village" value="<%= user.village %>"
+                              class="px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full"
+                              required>
+                    </label>
+                    <label class="font-semibold">
+                         Landmark
+                         <input type="text" name="Landmark" value="<%= user.landmark %>"
+                              class="px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full">
+                    </label>
+                    <label class="font-semibold">
+                         Pincode
+                         <input type="number" name="pincode" value="<%= user.pincode %>"
+                              class="inputNumber px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full"
+                              required>
+                    </label>
+                    <label class="font-semibold">
+                         Town/City
+                         <input type="text" name="city" value="<%= user.city %>"
+                              class="px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full"
+                              required>
+                    </label>
+                    <label class="font-semibold grid-flow-dense">
+                         State
+                         <select name="State" id="stateList"
+                              class="px-3 py-2 mt-1 font-normal rounded-md bg-transparent border-[1px] border-zinc-700 text-black outline-none w-full"
+                              required>
+                              <option value="" selected disabled>Select your state</option>
+                              <option>Andhra Pradesh</option>
+                              <option>Arunachal Pradesh</option>
+                              <option>Assam</option>
+                              <option>Bihar</option>
+                              <option>Chhattisgarh</option>
+                              <option>Goa</option>
+                              <option>Gujarat</option>
+                              <option>Haryana</option>
+                              <option>Himachal Pradesh</option>
+                              <option>Jharkhand</option>
+                              <option>Karnataka</option>
+                         </select>
+                    </label>
+                    <input
+                         class="px-3 py-2 bg-blue-400 hover:bg-blue-600 hover:text-zinc-300 hover:shadow-[0px_0px_10px_black] rounded-md font-semibold outline-none w-full cursor-pointer"
+                         type="submit" value="Use this address">
+               </form>
+          </div>
+     </div>
+
+     <div class="orderConfBoxParent">
+          <div
+               class="orderConfBox absolute top-0 opacity-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit p-4 bg-[#000000ad] text-white rounded-md space-y-4 font-sans transition-all duration-600 ">
+               <p>Are you sure you want to order this bag?</p>
+               <div class="flex justify-end gap-4">
+                    <button
+                         class="cancelBtn p-1 px-3 hover:bg-red-500 hover:text-white font-semibold bg-zinc-900 rounded-md cursor-pointer hover:shadow-[0px_0px_8px_white]">Cancel</button>
+                    <button
+                         class="orderBtn p-1 px-3 hover:bg-green-600 hover:text-white font-semibold bg-zinc-900 rounded-md cursor-pointer hover:shadow-[0px_0px_8px_white]">Order</button>
+               </div>
+          </div>
+     </div>
+
+     <script>
+
+          let form = document.querySelector('.orderForm')
+          form.addEventListener('submit', (e) => {
+               e.preventDefault();
+               let box = document.querySelector('.orderConfBox');
+               box.style.top = "17%";
+               box.style.opacity = "100";
+               let parentBox = document.querySelector('.parentContainer');
+               document.body.style.backgroundColor = "#0000008c";
+               parentBox.style.pointerEvents = "none";
+
+               document.querySelector('.cancelBtn').addEventListener('click', (e) => {
+                    box.style.top = "0";
+                    box.style.opacity = "0";
+                    document.body.style.backgroundColor = "transparent";
+                    parentBox.style.pointerEvents = "auto";
+               });
+
+               document.querySelector('.orderBtn').addEventListener('click', (e) => {
+                    box.style.top = "0";
+                    box.style.opacity = "0";
+                    document.body.style.backgroundColor = "transparent";
+                    parentBox.style.pointerEvents = "auto";
+
+                    form.submit();
+               });
+          });
+
+     </script>
+     <%- include('./partials/footer') %>

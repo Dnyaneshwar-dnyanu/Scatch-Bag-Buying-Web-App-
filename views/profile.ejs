@@ -1,0 +1,62 @@
+<%- include('./partials/header') %>
+
+     <% if (status.length> 0) { %>
+          <div
+               class="absolute w-fit top-10 left-1/2 -translate-x-52 -translate-y-1/2 bg-zinc-200 text-zinc-700 px-3 py-2 rounded-md border-3 border-transparent border-b-red-500 flash z-20">
+               <span>
+                    <%= status %>
+               </span>
+          </div>
+          <% } %>
+
+               <div class="w-full min-h-screen flex items-start py-20 bg-linear-to-r from-violet-900 to-pink-600">
+                    <div class="title w-full h-full self-center flex justify-center">
+                         <span
+                              class="text-9xl text-blue-200 hover:text-shadow-[0px_0px_10px_blue] cursor-pointer transition-all delay-300">Scatch</span>
+                    </div>
+                    <div class="w-full h-full border-zinc-400 pt-9 flex flex-col items-center">
+                         <form class="w-1/2 flex flex-col items-center mb-10" id="profilePicForm"
+                              action="/users/updatePicture" method="post" enctype="multipart/form-data">
+
+                              <% if (!user.picture) { %>
+                                   <% var imageUrl='/images/default_profile_photo.jpeg' ; %>
+                              <% } else { %>
+                                   <% var imageUrl='data:image/jpeg;base64,' + user.picture.toString('base64'); %>
+                              <% } %>
+
+                              <label for="profilePic"
+                                   class="w-44 h-44 rounded-full cursor-pointer shadow-[0px_0px_8px_black]">
+                                   <img class="w-full h-full object-cover rounded-full"
+                                        src="<%= imageUrl  %>" alt="">
+                                   <input type="file" name="picture" id="profilePic"
+                                        class="hidden">
+                              </label>
+                         </form>
+                         <form class=" w-1/2 flex flex-col items-center gap-5" action="/users/updateProfile"
+                              method="post">
+                              <input type="text" name="fullname" value="<%= user.fullname %>"
+                                   class="px-3 pt-3 pb-1 rounded-t-md bg-zinc-500 border-b-3 border-blue-300 text-zinc-900 has-focus-within:text-zinc-700 outline-none w-full shadow-[0px_0px_5px_black]">
+                              <input type="email" name="email" value="<%= user.email %>"
+                                   class="px-3 pt-3 pb-1 rounded-t-md bg-zinc-500 border-b-3 border-blue-300 text-zinc-900 has-focus-within:text-zinc-700 outline-none w-full shadow-[0px_0px_5px_black]">
+                              <input type="password" name="newPassword" placeholder="New password"
+                                   class="px-3 pt-3 pb-1 rounded-t-md bg-zinc-500 border-b-3 border-blue-300 text-zinc-900 has-focus-within:text-zinc-700 outline-none w-full shadow-[0px_0px_5px_black]">
+                              <input type="password" name="confPassword" placeholder="Confirm password"
+                                   class="px-3 pt-3 pb-1 rounded-t-md bg-zinc-500 border-b-3 border-blue-300 text-zinc-900 has-focus-within:text-zinc-700 outline-none w-full shadow-[0px_0px_5px_black]">
+                              <input
+                                   class="px-3 py-2 bg-blue-400 hover:bg-blue-600 hover:text-zinc-300 hover:shadow-[0px_0px_10px_black] rounded-md font-semibold outline-none w-full cursor-pointer"
+                                   type="submit" value="Update account details">
+                         </form>
+                    </div>
+               </div>
+
+               <script>
+                    let imageInput = document.querySelector('#profilePic');
+                    let form = document.querySelector('#profilePicForm');
+
+                    imageInput.addEventListener('change', e => {
+                         form.submit();
+                    })
+               </script>
+
+
+               <%- include('./partials/footer') %>

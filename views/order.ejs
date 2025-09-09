@@ -1,0 +1,42 @@
+<%- include('./partials/header') %>
+
+     <div class="container mx-auto w-full h-screen py-20 px-10">
+          <h2 class="text-2xl font-bold text-yellow-600 mb-2">Welcome to your Basket</h2>
+          <% if (items.length > 0) { %> 
+
+               <div class="productsContainer w-full flex flex-wrap relative pb-20">
+                    
+                    <% items.forEach((item) => { %>
+                         <div class="product p-5 flex gap-8 w-[700px] rounded-2xl hover:shadow-[0px_0px_10px_blue] hover:bg-linear-to-r from-violet-900 to-pink-600 transition-all duration-200 relative"> 
+                              <div class="productDetails w-2/5">
+                                   <div class="image w-full h-56" style="background-color: <%= item.product.bgcolor %>;">
+                                        <img class="w-full h-full object-fill" src="data:image/jpeg;base64, <%= item.product.image.toString('base64') %>" alt="">
+                                   </div>
+                                   <div class="details space-y-3 p-3" style="background-color: <%= item.product.panelcolor %>; color: <%= item.product.textcolor %>">
+                                        <div class=" flex justify-between items-center">
+                                             <span><%= item.product.name %></span>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div class="prices w-1/2">
+                                   <h3 class="text-xl font-semibold mb-4 mt-2">Price Breakdown</h3>
+                                   <ul class="w-full flex flex-col gap-2">
+                                        <li class="flex justify-between ml-5"><span>Total MRP</span><span>₹ <%= item.product.price %></span></li>
+                                        <li class="flex justify-between ml-5"><span>Discount on MRP</span><span>₹ <%= item.product.discount %></span></li>
+                                        <li class="flex justify-between ml-5"><span>Platform Fee</span><span>₹20</span></li>
+                                        <li class="flex justify-between ml-5"><span>Shipping Fee</span><span>FREE</span></li>
+                                        <li class="flex justify-between ml-5"><span>No. of items</span><span><%= item.count %></span></li>
+                                        <hr class="my-3 w-full border-none h-0.5 bg-black">
+                                        <% var bill = (item.product.price - item.product.discount + 20) * item.count %>
+                                        <li class="flex justify-between text-xl font-semibold"><span>Total amount</span><span class="font-bold text-green-500">₹ <%= bill %></span></li>
+                                   </ul>
+                              </div>
+                         </div>
+                    <% }) %>
+          <% } else { %>
+               <div class="w-full h-full flex items-center justify-center">
+                    <img class="blur-[2px]" src="/images/empty-basket.jpeg" alt="Empty Basket">
+               </div>
+          <% } %>
+     </div>
+<%- include('./partials/footer') %>
